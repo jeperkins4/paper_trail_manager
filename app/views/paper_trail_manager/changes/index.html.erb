@@ -7,7 +7,7 @@
   <%= ([link_to('All', changes_path)] + change_item_types.map { |type| link_to(type.pluralize, changes_path(:type => type)) }).join(' | ').html_safe %>
 </p>
 
-<table class='changes_table table table-striped table-condensed table-bordered'>
+<table id='changes_table' class='changes_table table table-striped table-condensed table-bordered dataTable'>
   <tfoot>
     <tr>
       <td colspan='2'>
