@@ -26,6 +26,14 @@
     <% if version.event == 'update' or version.event == 'create' %>
       <% changes = changes_for(version) %>
       <table class='change_details_table table table-striped table-condensed'>
+        <thead>
+          <tr>
+            <th>Attribute changed</th>
+            <th>From</th>
+            <th></th>
+            <th>To</th>
+          </tr>
+        </thead>
         <% changes.keys.sort.each_with_index do |key, i| %>
           <tr class='<%= i%2==0 ? 'even' : 'odd' %>'>
             <td class='change_detail_key previous'><%= key %></td>

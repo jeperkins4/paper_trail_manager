@@ -2,6 +2,7 @@
 PaperTrailManager::ChangesController = Class.new(PaperTrailManager.base_controller.constantize)
 
 class PaperTrailManager::ChangesController
+  before_filter :authenticate_user!
   # Default number of changes to list on a pagenated index page.
   PER_PAGE = 50
 
