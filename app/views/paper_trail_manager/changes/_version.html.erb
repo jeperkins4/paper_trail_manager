@@ -26,7 +26,7 @@
     <% if version.event == 'update' or version.event == 'create' %>
       <% changes = changes_for(version) %>
       <table class='change_details_table table table-striped table-condensed'>
-        <% if changes %>
+        <% unless changes.empty? %>
           <thead>
             <tr>
               <th>Attribute changed</th>
