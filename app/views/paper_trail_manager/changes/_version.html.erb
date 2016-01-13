@@ -25,8 +25,7 @@
     </p>
     <% if version.event == 'update' or version.event == 'create' %>
       <% changes = changes_for(version) %>
-      <h5><%= changes.count %> Changes</h5>
-      <table class='change_details_table'>
+      <table class='change_details_table table table-striped table-condensed'>
         <% changes.keys.sort.each_with_index do |key, i| %>
           <tr class='<%= i%2==0 ? 'even' : 'odd' %>'>
             <td class='change_detail_key previous'><%= key %></td>
