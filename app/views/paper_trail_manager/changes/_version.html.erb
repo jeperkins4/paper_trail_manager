@@ -11,7 +11,7 @@
       <% if PaperTrailManager.whodunnit_class && version.whodunnit %>
         <% if user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil %>
           <% if PaperTrailManager.user_path_method && user %>
-            by <%= link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), send(:user_path_method, user)) %>
+            by <%= link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), send(:user_path, user)) %>
           <% else %>
             by <%= h(user.send(PaperTrailManager.whodunnit_name_method)) %>
           <% end %>
