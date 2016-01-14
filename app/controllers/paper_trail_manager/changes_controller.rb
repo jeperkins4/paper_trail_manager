@@ -17,6 +17,7 @@ class PaperTrailManager::ChangesController
       return(redirect_to root_url)
     end
 
+=begin
     @versions = PaperTrail::Version.order('created_at DESC, id DESC')
     if params[:type]
       @versions = @versions.where(:item_type => params[:type])
@@ -34,11 +35,12 @@ class PaperTrailManager::ChangesController
     else
       @versions = @versions.page(@page).per(@per_page)
     end
-
+=end
     respond_to do |format|
       format.html # index.html.erb
       format.atom # index.atom.builder
-      format.json { render :json => @versions }
+      #format.json { render :json => @versions }
+      format.json { render json: PaperTrailManager::ChangesDatatable.new(view_context) }
     end
   end
 

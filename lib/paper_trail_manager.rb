@@ -11,10 +11,19 @@ rescue LoadError
   end
 end
 
-class PaperTrailManager < Rails::Engine
+class PaperTrailManager < ::Rails::Engine
+  isolate_namespace PaperTrailManager
+
   initializer "paper_trail_manager.pagination" do
     if defined?(WillPaginate)
       ::ActionView::Base.send(:alias_method, :paginate, :will_paginate)
+    end
+  end
+
+  config.to_prepare do
+    spec = Gem::Specification.find_by_name("paper_trail_manager")
+    Dir.glob(spec.gem_dir + "/app/datatables/**/*_datatable.rb").each do |c|
+      require_dependency(c)
     end
   end
 

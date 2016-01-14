@@ -7,29 +7,13 @@
   <%= ([link_to('All', changes_path)] + change_item_types.map { |type| link_to(type.pluralize, changes_path(:type => type)) }).join(' | ').html_safe %>
 </p>
 
-<table id='changes_table' class='changes_table table table-striped table-condensed table-bordered dataTable' data-source="<%= changes_path(format: 'json', protocol: protocol) %>">
-  <tfoot>
-    <tr>
-      <td colspan='2'>
-        <%= paginate @versions %>
-      </td>
-    </tr>
-  </tfoot>
+<table id='changes_table' class='changes_table table table-striped table-condensed dataTable' data-source="<%= changes_url(format: 'json', protocol: protocol) %>">
   <thead>
     <tr class='changes_header'>
       <th class='change_time'>Time</th>
       <th class='change_details'>Attribute with previous and current values</th>
+      <th class='change_rollback'>Action</th>
     </tr>
   </thead>
-  <tbody>
-    <% if @versions.any? %>
-      <% @versions.each do |version| %>
-        <% next unless change_show_allowed?(version) %>
-        <%= render :partial => 'version', :object => version %>
-      <% end %>
-    <% else %>
-      <td rowspan='2'> &mdash; No changes found &mdash; </td>
-    <% end %>
-  </tbody>
 </table>
 
