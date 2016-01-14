@@ -27,6 +27,7 @@ class PaperTrailManager < Rails::Engine
 
   (Pathname(__FILE__).dirname + '..').tap do |base|
     paths["app/controller"] = base + 'app/controllers'
+    paths["app/datatable"] = base + 'app/datatables'
     paths["app/view"] = base + 'app/views'
   end
 
