@@ -59,7 +59,7 @@ private
     tags << change_item_link(version)
     tags << user(version)
     html = [content_tag(:p, tags.join(' ').html_safe, class: 'change_details_description')]
-    html << change_table(version)
+    html << change_table(version) if ['create','update'].include?(version.event)
     html.join('')
   end
 
