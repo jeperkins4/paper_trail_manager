@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", [">= 3.0", "< 5.0"]
   spec.add_dependency "paper_trail", [">= 3.0", "< 5.0"]
   spec.add_dependency 'kaminari'
+  spec.add_dependency 'chronic'
   spec.add_dependency 'jquery-datatables-rails'
 
   spec.add_development_dependency "rake", "~> 10.4"

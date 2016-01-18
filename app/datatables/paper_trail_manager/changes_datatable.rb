@@ -16,6 +16,10 @@ private
       [
         change_time(version),
         #link_to(version.whodunnit, version),
+        version.item_type,
+        version.event,
+        version.whodunnit,
+        version.created_at,
         change_details(version),
         rollback(version)
       ]
@@ -29,9 +33,44 @@ private
   def fetch_versions
     versions = PaperTrail::Version.order(order_by(columns))
 
+    puts "BLAH, BLAH, BLAH"
+
+    if params.key?(:columns)
+      if params[:columns]['1'].present? && params[:columns]['1'][:search][:value].present?
+        q = params[:columns]['1'][:search][:value].split("|")
+        #sticky(:dt_candidates_supplier, q)
+        versions = versions.where(item_type: q.map(&:singularize)) unless q.blank?
+      #else
+        #sticky(:dt_candidates_supplier, nil)
+      end
+      if params[:columns]['2'].present? && params[:columns]['2'][:search][:value].present?
+        q = params[:columns]['2'][:search][:value].split("|")
+        #sticky(:dt_candidates_supplier, q)
+        versions = versions.where(event: q) unless q.blank?
+      #else
+        #sticky(:dt_candidates_supplier, nil)
+      end
+      if params[:columns]['3'].present? && params[:columns]['3'][:search][:value].present?
+        q = params[:columns]['3'][:search][:value]
+        #sticky(:dt_candidates_status, q)
+        versions = versions.where(whodunnit: q) unless q.blank?
+      #else
+      #  sticky(:dt_candidates_status, nil)
+      end
+      if params[:columns]['4'].present? && params[:columns]['4'][:search][:value].present?
+        q = params[:columns]['4'][:search][:value]
+        start_on, end_on = q.split('-').map(&:strip)
+        #sticky(:dt_candidates_hotel_chain_id, q)
+        versions = versions.where(created_at: Chronic.parse(start_on)..Chronic.parse(end_on)) unless q.blank?
+      #else
+        #sticky(:dt_candidates_hotel_chain_id, nil)
+      end
+    end
+
+    # Start organic search
     search_terms = params[:search][:value]
-    if params[:search].present?
-      versions = versions.where('versions.whodunnit like :search or versions.item_type like :search or versions.object like :search or versions.event = :search', search: "%#{search_terms}%")
+    if search_terms.present?
+      versions = versions.where('versions.object like :search', search: "%#{search_terms}%")
     end
     if params[:type]
       versions = versions.where(:item_type => params[:type])

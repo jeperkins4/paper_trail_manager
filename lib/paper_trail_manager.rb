@@ -1,5 +1,6 @@
 require 'rails'
 require 'paper_trail'
+require 'chronic'
 
 begin
   require 'will_paginate'
