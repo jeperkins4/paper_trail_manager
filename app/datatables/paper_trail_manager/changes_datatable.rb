@@ -130,23 +130,31 @@ private
   end
 
   def table_header
-    th = [content_tag(:th, 'Attribute changed')]
-    th << content_tag(:th, 'From')
-    th << content_tag(:th)
-    th << content_tag(:th, 'To')
-    content_tag(:thead, content_tag(:tr, th.join('').html_safe))
+    th = content_tag(:dl, class: 'dl-horizontal') do
+      html = content_tag(:dt, 'Attribute changed:')
+      html += content_tag(:dd, "From &rarr; To".html_safe)
+      html
+    end
+    content_tag(:thead) do
+      content_tag(:tr) do
+        content_tag(:th, th.html_safe)
+      end
+    end
   end
 
   def table_body(changes)
     rows = []
     changes.keys.sort.each_with_index do |key, i|
-      td = [content_tag(:td, key, class: 'change_detail_key previous')]
-      td << content_tag(:td, text_or_nil(changes[key][:previous]), class: 'change_detail_value previous')
-      td << content_tag(:td, "&rarr;".html_safe, class: 'change_detail_spacer')
-      td << content_tag(:td, text_or_nil(changes[key][:current]), class: 'change_detail_value current')
-      row = i % 2 == 0 ? 'even' : 'odd'
-      rows << content_tag(:tr, td.join('').html_safe, class: row)
+      stuff = [text_or_nil(changes[key][:previous])]
+      stuff << "&rarr;".html_safe
+      stuff << text_or_nil(changes[key][:current])
+      html = content_tag(:dt, "#{key}: ")
+      html += content_tag(:dd, stuff.join(' ').html_safe)
+      rows << html
     end
-    content_tag(:tbody, rows.join('').html_safe)
+    body = content_tag(:tr) do
+      content_tag(:td, content_tag(:dl, rows.join('').html_safe, class: 'dl-horizontal'))
+    end
+    content_tag(:tbody, body)
   end
 end
