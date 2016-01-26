@@ -12,14 +12,14 @@
   </div>
   <div class="col-md-3">
     <strong>Users</strong>
-    <%= select_tag :change_user, User.all.map { |user| "<option value='#{user.id}'>#{user.name}</option>" }.join(''), include_blank: true, class: 'form-control' %>
+    <%= select_tag :change_user, User.order(:name).map { |user| "<option value='#{user.id}'>#{user.name}</option>" }.join(''), include_blank: true, class: 'form-control' %>
   </div>
   <div class="col-md-3">
     <strong>Date Range</strong>
     <input type='text' id='change_date' name='change_date' class='form-control'/>
   </div>
 </div>
-
+<p></p>
 <table id='changes_table' class='changes_table table table-striped table-condensed dataTable' data-source="<%= changes_url(format: 'json', protocol: protocol) %>">
   <thead>
     <tr class='changes_header'>
