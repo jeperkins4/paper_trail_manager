@@ -21,6 +21,10 @@ class PaperTrailManager < ::Rails::Engine
     end
   end
 
+  initializer "paper_trail_manager.assets.precompile" do |app|
+    app.config.assets.precompile += %w(changes.coffee)
+  end
+
   config.to_prepare do
     spec = Gem::Specification.find_by_name("paper_trail_manager")
     Dir.glob(spec.gem_dir + "/app/datatables/**/*_datatable.rb").each do |c|
