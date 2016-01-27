@@ -109,7 +109,11 @@ private
   private
   def user(version)
     return unless PaperTrailManager.whodunnit_class && version.whodunnit
-    user = PaperTrailManager.whodunnit_class.find(version.whodunnit)
+    if version.whodunnit.is_a?(String)
+      user = PaperTrailManager.whodunnit_class.find_by(name: version.whodunnit)
+    else
+      user = PaperTrailManager.whodunnit_class.find(version.whodunnit)
+    end
     if user
       if PaperTrailManager.user_path_method
         link = link_to(user.send(PaperTrailManager.whodunnit_name_method).html_safe, send(PaperTrailManager.user_path_method.to_sym, user))
