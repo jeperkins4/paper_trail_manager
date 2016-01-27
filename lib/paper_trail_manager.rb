@@ -43,6 +43,7 @@ class PaperTrailManager < ::Rails::Engine
     paths["app/controller"] = base + 'app/controllers'
     paths["app/datatable"] = base + 'app/datatables'
     paths["app/view"] = base + 'app/views'
+    paths["app/asset"] = base + 'app/assets'
   end
 
   cattr_accessor :allow_index_block, :allow_show_block, :allow_revert_block
