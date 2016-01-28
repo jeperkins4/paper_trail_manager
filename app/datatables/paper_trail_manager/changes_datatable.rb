@@ -109,10 +109,10 @@ private
   private
   def user(version)
     return unless PaperTrailManager.whodunnit_class && version.whodunnit
-    if version.whodunnit.is_a?(String)
-      user = PaperTrailManager.whodunnit_class.find_by(name: version.whodunnit)
-    else
+    if is_number?(version.whodunnit)
       user = PaperTrailManager.whodunnit_class.find(version.whodunnit)
+    else
+      user = PaperTrailManager.whodunnit_class.find_by(name: version.whodunnit)
     end
     if user
       if PaperTrailManager.user_path_method
@@ -124,6 +124,10 @@ private
       link = version.whodunnit
     end
     return "by #{link}"
+  end
+
+  def is_number?(value)
+    true if Float(value) rescue false
   end
 
   def change_table(version)
