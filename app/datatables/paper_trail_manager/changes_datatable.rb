@@ -50,6 +50,7 @@ private
       end
       if params[:columns]['3'].present? && params[:columns]['3'][:search][:value].present?
         q = params[:columns]['3'][:search][:value]
+        byebug
         if is_number?(q)
           q = User.find_by(name: q).try(:id)
         end
