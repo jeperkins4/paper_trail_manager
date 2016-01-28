@@ -50,9 +50,7 @@ private
       end
       if params[:columns]['3'].present? && params[:columns]['3'][:search][:value].present?
         q = params[:columns]['3'][:search][:value]
-        q = User.find_by(name: q).try(:id) unless is_number?(q)
-        #sticky(:dt_candidates_status, q)
-        versions = versions.where(whodunnit: q) unless q.blank?
+        versions = by_name(versions, q)
       #else
       #  sticky(:dt_candidates_status, nil)
       end
@@ -123,6 +121,12 @@ private
       link = version.whodunnit
     end
     return "by #{link}"
+  end
+
+  def by_name(versions, q)
+    alt = is_number?(q) ? User.find_by(name: q).try(:id) : User.find(q).try(:name)
+    #sticky(:dt_candidates_status, q)
+    versions.where('whodunnit = ? or whodunnit = ?',q, alt) unless q.blank?
   end
 
   def is_number?(value)
