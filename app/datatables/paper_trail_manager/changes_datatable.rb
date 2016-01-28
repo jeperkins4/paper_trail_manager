@@ -33,8 +33,6 @@ private
   def fetch_versions
     versions = PaperTrail::Version.order(order_by(columns))
 
-    puts "BLAH, BLAH, BLAH"
-
     if params.key?(:columns)
       if params[:columns]['1'].present? && params[:columns]['1'][:search][:value].present?
         q = params[:columns]['1'][:search][:value].split("|")
@@ -52,6 +50,9 @@ private
       end
       if params[:columns]['3'].present? && params[:columns]['3'][:search][:value].present?
         q = params[:columns]['3'][:search][:value]
+        if is_number?(q)
+          q = User.find_by(name: q)
+        end
         #sticky(:dt_candidates_status, q)
         versions = versions.where(whodunnit: q) unless q.blank?
       #else
