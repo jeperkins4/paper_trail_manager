@@ -1,5 +1,5 @@
 class PaperTrailManager::ChangesDatatable < PaperTrailManager::BaseDatatable
-  delegate :current_user, :change_path, :user_path, :change_show_allowed?, :changes_for, :change_title_for, :change_item_types, :change_item_link, :version_reify, :text_or_nil, to: :@view
+  delegate :current_user, :change_path, :admin_user_path, :user_path, :change_show_allowed?, :changes_for, :change_title_for, :change_item_types, :change_item_link, :version_reify, :text_or_nil, to: :@view
 
   def as_json(options = {})
     {

@@ -13,11 +13,11 @@ $ ->
 
   $('input[name="change_date"]').daterangepicker
     ranges:
-      "Next 7 Days": [
+      "Last 7 Days": [
         moment()
         moment().subtract("days", 6)
       ]
-      "Next 30 Days": [
+      "Last 30 Days": [
         moment()
         moment().subtract("days", 29)
       ]

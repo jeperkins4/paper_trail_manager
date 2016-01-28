@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'kaminari'
   spec.add_dependency 'chronic'
   spec.add_dependency 'jquery-datatables-rails'
+  spec.add_dependency 'momentjs-rails'
 
   spec.add_development_dependency "rake", "~> 10.4"
   spec.add_development_dependency "sqlite3", "~> 1.3"
