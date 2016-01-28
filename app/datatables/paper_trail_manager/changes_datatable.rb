@@ -124,8 +124,8 @@ private
   end
 
   def by_name(versions, q)
-    alt = is_number?(q) ? User.find_by(name: q).try(:id) : User.find(q).try(:name)
-    #sticky(:dt_candidates_status, q)
+    alt = is_number?(q) ? User.find(q).try(:name) : User.find_by(name: q).try(:id)
+    #sticky(:dt_changes_user, q)
     versions.where('whodunnit = ? or whodunnit = ?',q, alt) unless q.blank?
   end
 
