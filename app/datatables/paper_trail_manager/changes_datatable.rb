@@ -51,7 +51,7 @@ private
       if params[:columns]['3'].present? && params[:columns]['3'][:search][:value].present?
         q = params[:columns]['3'][:search][:value]
         if is_number?(q)
-          q = User.find_by(name: q)
+          q = User.find_by(name: q).try(:id)
         end
         #sticky(:dt_candidates_status, q)
         versions = versions.where(whodunnit: q) unless q.blank?
