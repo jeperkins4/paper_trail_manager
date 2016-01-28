@@ -22,7 +22,7 @@ class PaperTrailManager < ::Rails::Engine
   end
 
   initializer "paper_trail_manager.assets.precompile" do |app|
-    app.config.assets.precompile += %w(changes.coffee)
+    app.config.assets.precompile += %w(changes.coffee changes.scss)
   end
 
   config.to_prepare do
